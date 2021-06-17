@@ -1,0 +1,14 @@
+{
+  "name": "react-fundamental",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  },
+  "scripts": {
+    "start:api": "yarn --cwd back-end start",
+    "start:ui": "yarn --cwd ui start",
+    "start": "concurrently -k yarn:start:api yarn:start:ui"
+  }
+}
