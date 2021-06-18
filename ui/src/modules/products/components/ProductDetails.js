@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -30,7 +31,8 @@ export default function ProductDetails() {
   const id = 1;
   const [product, setProduct] = useState();
   const classes = useStyles();
-    const theme = useTheme();
+  const history = useHistory();
+  const theme = useTheme();
   const isMediumUp = useMediaQuery(theme.breakpoints.up("md"));
 
   useEffect(() => {
@@ -42,6 +44,10 @@ export default function ProductDetails() {
 
     loadProduct();
   }, []);
+
+  const buyNow = () => {
+    history.push("/cart");
+  };
 
   if (!product) return null;
 
@@ -74,7 +80,7 @@ export default function ProductDetails() {
                 color="primary"
                 aria-label="primary button group"
               >
-                <Button>Buy Now</Button>
+                <Button onClick={buyNow}>Buy Now</Button>
                 <Button>Add to Cart</Button>
               </ButtonGroup>
             </Grid>

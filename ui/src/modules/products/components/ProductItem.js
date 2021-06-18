@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 import currencyFormat from "utils/currencyFormat";
 
@@ -30,10 +31,14 @@ export default function ProductItem({
   price,
 }) {
   const classes = useStyles();
+  const history = useHistory();
+  const { path } = useRouteMatch();
+
+  const navigateToDetails = () => history.push(`${path}/${id}`);
 
   return (
     <Grid item xs={12} sm={6} lg={4}>
-      <Card>
+      <Card onClick={navigateToDetails}>
         <CardActionArea>
           <CardMedia image={image} title={name} className={classes.media} />
           <CardContent>

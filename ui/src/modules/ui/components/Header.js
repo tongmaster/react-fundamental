@@ -11,6 +11,7 @@ import {
 import logo from "assets/images/logo.png";
 import { makeStyles } from "@material-ui/core/styles";
 import { ShoppingCart } from "@material-ui/icons";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer,
@@ -28,19 +29,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Header() {
   const classes = useStyles();
+  const history = useHistory();
+  const navigateToCart = () => history.push("/cart");
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <Link
+          component={RouterLink}
           className={classes.logoLink}
-          href="/"
+          to="/"
           color="inherit"
           underline="none"
         >
           <img src={logo} alt="Shopping" className={classes.logoImage} />
         </Link>
 
-        <Link href="/products" color="inherit" underline="none">
+        <Link component={RouterLink} to="/products" color="inherit" underline="none">
           Products
         </Link>
         <div className={classes.spacer}></div>
