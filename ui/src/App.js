@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Layout from "./modules/ui/components/Layout";
+import { BrowserRouter as Router } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
@@ -14,7 +15,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 function App() {
   const classes = useStyles();
-  return <Layout></Layout>;
+  return (
+    <Router>
+      <Layout></Layout>
+    </Router>
+  );
 }
 
 export default App;

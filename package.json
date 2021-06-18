@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^6.2.0"
+    "concurrently": "^6.2.0",
+    "react-router-dom": "^5.2.0"
   },
   "scripts": {
     "start:api": "yarn --cwd back-end start",
