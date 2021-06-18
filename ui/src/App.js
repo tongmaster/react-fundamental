@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-// const useStyles = makeStyles({
-//   root: {
-//     padding: "16px",
-//     backgroundColor: "blue",
-//     color: "white",
-//   },
-// });
+import Layout from "./modules/ui/components/Layout";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
@@ -20,11 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function App() {
   const classes = useStyles();
-  return (
-    <>
-      <div className={classes.root}>hello</div>
-    </>
-  );
+  return <Layout></Layout>;
 }
 
 export default App;
