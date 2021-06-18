@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProductDetails() {
-  const id = 1;
+  const { id } = useParams();
   const [product, setProduct] = useState();
   const classes = useStyles();
   const history = useHistory();
