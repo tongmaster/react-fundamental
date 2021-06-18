@@ -4,8 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@hookform/resolvers": "^2.5.2",
     "concurrently": "^6.2.0",
-    "react-router-dom": "^5.2.0"
+    "react-hook-form": "^7.8.8",
+    "react-router-dom": "^5.2.0",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start:api": "yarn --cwd back-end start",
