@@ -1,25 +1,18 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Layout from "./modules/ui/components/Layout";
+import React from "react";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(2),
-    margin: theme.spacing(1, 2),
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
-    "&:hover": {
-      backgroundColor: theme.palette.secondary.main,
-    },
-  },
-}));
-function App() {
-  const classes = useStyles();
+
+import configureStore from "store/configureStore";
+import Layout from "./modules/ui/components/Layout";
+
+const store = configureStore();
+
+export default function App() {
   return (
-    <Router>
-      <Layout></Layout>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Layout></Layout>
+      </Router>
+    </Provider>
   );
 }
-
-export default App;
