@@ -13,6 +13,7 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import * as productAction from "../actions";
+import * as cartAction from "modules/cart/actions";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
@@ -38,6 +39,8 @@ export default function ProductDetails() {
 
   const dispatch = useDispatch();
   const [product] = useSelector((state) => state.products.items);
+  const productIds = useSelector((state) => state.cart.productIds);
+  const exist = productIds.includes(id);
   // useEffect(() => {
   //   const loadProduct = async () => {
   //     const { data } = await axios.get(`/products/${id}`);
@@ -53,7 +56,12 @@ export default function ProductDetails() {
     dispatch(action);
   }, [dispatch, id]);
   const buyNow = () => {
+    addToCart();
     history.push("/cart");
+  };
+  const addToCart = () => {
+    const action = cartAction.addToCart(id);
+    dispatch(action);
   };
 
   if (!product) return null;
@@ -81,16 +89,19 @@ export default function ProductDetails() {
               </Typography>
               <p>{product.desc}</p>
             </Grid>
-            <Grid item>
-              <ButtonGroup
-                variant="contained"
-                color="primary"
-                aria-label="primary button group"
-              >
-                <Button onClick={buyNow}>Buy Now</Button>
-                <Button>Add to Cart</Button>
-              </ButtonGroup>
-            </Grid>
+
+            {!exist && (
+              <Grid item>
+                <ButtonGroup
+                  variant="contained"
+                  color="primary"
+                  aria-label="primary button group"
+                >
+                  <Button onClick={buyNow}>Buy Now</Button>
+                  <Button onClick={addToCart}>Add to Cart</Button>
+                </ButtonGroup>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Grid>

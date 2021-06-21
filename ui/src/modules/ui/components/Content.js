@@ -5,6 +5,8 @@ import CategoryList from "modules/products/components/CategoryList";
 import ProductList from "modules/products/components/ProductList";
 import Cart from "modules/cart/components/Cart";
 import Routes from "./Routes";
+import * as uiAction from "../actions";
+import { useDispatch, useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   content: {
     padding: theme.spacing(2, 0),
@@ -13,21 +15,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Content() {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const flashMessage = useSelector((state) => state.ui.flashMessage);
+  const clearFlashMessage = () => {
+    const action = uiAction.clearFlashMessage();
+    dispatch(action);
+  };
   return (
     <main className={classes.content}>
       <Container maxWidth="lg">
         <Toolbar></Toolbar>
         <Routes></Routes>
-        <Snackbar
-          open
-          message="Hello"
-          action={
-            <Button color="inherit" size="small">
-              Close
-            </Button>
-          }
-        ></Snackbar>
+        {flashMessage && (
+          <Snackbar
+            open
+            message={flashMessage}
+            action={
+              <Button color="inherit" size="small" onClick={clearFlashMessage}>
+                Close
+              </Button>
+            }
+          ></Snackbar>
+        )}
       </Container>
     </main>
   );

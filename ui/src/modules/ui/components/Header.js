@@ -15,7 +15,6 @@ import { ShoppingCart } from "@material-ui/icons";
 
 import logo from "assets/images/logo.png";
 import * as actions from "../actions";
-
 const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer,
@@ -37,7 +36,7 @@ export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.ui.darkMode);
-
+  const countCart = useSelector((state) => state.cart.productIds).length;
   const navigateToCart = () => history.push("/cart");
 
   const toggleDarkMode = () => dispatch(actions.toggleDarkMode());
@@ -75,7 +74,7 @@ export default function Header() {
           labelPlacement="end"
         ></FormControlLabel>
         <IconButton color="inherit" onClick={navigateToCart}>
-          <Badge badgeContent={5} color="secondary">
+          <Badge badgeContent={countCart} color="secondary">
             <ShoppingCart></ShoppingCart>
           </Badge>
         </IconButton>
