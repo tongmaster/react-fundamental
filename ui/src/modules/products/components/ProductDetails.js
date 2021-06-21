@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Grid,
   Paper,
@@ -11,7 +12,7 @@ import {
   Button,
 } from "@material-ui/core";
 import axios from "axios";
-
+import * as productAction from "../actions";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
@@ -29,22 +30,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const [product, setProduct] = useState();
+  // const [product, setProduct] = useState();
   const classes = useStyles();
   const history = useHistory();
   const theme = useTheme();
   const isMediumUp = useMediaQuery(theme.breakpoints.up("md"));
 
+  const dispatch = useDispatch();
+  const [product] = useSelector((state) => state.products.items);
+  // useEffect(() => {
+  //   const loadProduct = async () => {
+  //     const { data } = await axios.get(`/products/${id}`);
+
+  //     setProduct(data);
+  //   };
+
+  //   loadProduct();
+  // }, []);
+
   useEffect(() => {
-    const loadProduct = async () => {
-      const { data } = await axios.get(`/products/${id}`);
-
-      setProduct(data);
-    };
-
-    loadProduct();
-  }, []);
-
+    const action = productAction.loadProduct(id);
+    dispatch(action);
+  }, [dispatch, id]);
   const buyNow = () => {
     history.push("/cart");
   };
