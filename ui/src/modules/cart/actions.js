@@ -1,6 +1,7 @@
 import * as uiAction from "modules/ui/actions";
 import * as productsAction from "modules/products/actions";
 import axios from "axios";
+import { push } from "connected-react-router";
 const ADD_TO_CART = "ADD_TO_CART";
 const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 const CHECKOUT_SUCCESS = "CHECKOUT_SUCCESS";
@@ -43,6 +44,7 @@ function checkout(deliveryInfo) {
 
     dispatch({ type: CHECKOUT_SUCCESS, payload: { order: data } });
     dispatch(uiAction.setFlashMessage("Your order has been placed"));
+    dispatch(push("/"));
   };
 }
 export {

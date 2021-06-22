@@ -6,6 +6,18 @@
       ],
       "price": 500,
       "id": 1
+    },
+    {
+      "deliveryInfo": {
+        "name": "test@g.com",
+        "email": "test@g.com",
+        "address": "ddd"
+      },
+      "productIds": [
+        "1"
+      ],
+      "price": 500,
+      "id": 2
     }
   ],
   "products": [
