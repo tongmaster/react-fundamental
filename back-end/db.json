@@ -1,4 +1,13 @@
 {
+  "orders": [
+    {
+      "productIds": [
+        "1"
+      ],
+      "price": 500,
+      "id": 1
+    }
+  ],
   "products": [
     {
       "id": 1,

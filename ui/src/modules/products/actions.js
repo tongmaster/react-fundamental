@@ -5,6 +5,7 @@ const LOAD_PRODUCTS_FAILURE = "LOAD_PRODUCTS_FAILURE";
 const LOAD_PRODUCT_REQUEST = "LOAD_PRODUCT_REQUEST";
 const LOAD_PRODUCT_SUCCESS = "LOAD_PRODUCT_SUCCESS";
 const LOAD_PRODUCT_FAILURE = "LOAD_PRODUCT_FAILURE";
+const CLEAR_PRODUCTS = "CLEAR_PRODUCTS";
 
 function loadProducts(query) {
   return async (dispatch) => {
@@ -29,6 +30,9 @@ function loadProduct(id) {
     }
   };
 }
+function clearProducts() {
+  return { type: CLEAR_PRODUCTS };
+}
 export {
   LOAD_PRODUCTS_REQUEST,
   LOAD_PRODUCTS_SUCCESS,
@@ -36,6 +40,8 @@ export {
   LOAD_PRODUCT_REQUEST,
   LOAD_PRODUCT_SUCCESS,
   LOAD_PRODUCT_FAILURE,
+  CLEAR_PRODUCTS,
   loadProducts,
   loadProduct,
+  clearProducts,
 };

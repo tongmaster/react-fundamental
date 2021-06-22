@@ -5,6 +5,7 @@ import {
   LOAD_PRODUCT_REQUEST,
   LOAD_PRODUCT_SUCCESS,
   LOAD_PRODUCT_FAILURE,
+  CLEAR_PRODUCTS,
 } from "./actions";
 const initialState = {
   isLoading: false,
@@ -23,6 +24,8 @@ export default function (state = initialState, action) {
     case LOAD_PRODUCTS_FAILURE:
     case LOAD_PRODUCT_FAILURE:
       return { ...state, isLoading: false };
+    case CLEAR_PRODUCTS:
+      return { ...state, isLoading: false, items: [] };
     default:
       return state;
   }

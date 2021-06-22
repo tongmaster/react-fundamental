@@ -10,7 +10,8 @@ import {
   Button,
 } from "@material-ui/core";
 import * as yup from "yup";
-
+import * as cartAction from "../actions";
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   form: {
     "& > * + *": {
@@ -33,8 +34,10 @@ export default function Delivery() {
     }),
   });
 
+  const dispatch = useDispatch();
   const submit = (deliveryInfo) => {
     console.log(deliveryInfo);
+    dispatch(cartAction.checkout(deliveryInfo));
   };
 
   return (

@@ -9,7 +9,8 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
-
+import { useDispatch } from "react-redux";
+import * as cartAction from "../actions";
 import currencyFormat from "utils/currencyFormat";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,9 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CartProduct({ image, name, price }) {
+export default function CartProduct({ id, image, name, price }) {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+  const remove = () => dispatch(cartAction.removeFromCart(id));
   return (
     <Card className={classes.product}>
       <CardMedia image={image} title={name} className={classes.image} />
@@ -39,7 +42,7 @@ export default function CartProduct({ image, name, price }) {
             <div>{currencyFormat(price)}</div>
           </Grid>
           <Grid item>
-            <IconButton aria-label="delete" size="small">
+            <IconButton aria-label="delete" size="small" onClick={remove}>
               <Delete></Delete>
             </IconButton>
           </Grid>
