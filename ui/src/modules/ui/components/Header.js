@@ -34,6 +34,7 @@ export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.ui.darkMode);
+  const countProduct = useSelector((state) => state.cart.productIds).length;
   const navigateToCart = () => history.push("/cart");
   const toggleDarkMode = () => {
     dispatch(toggle());
@@ -71,7 +72,7 @@ export default function Header() {
           label="Dark"
         ></FormControlLabel>
         <IconButton color="inherit">
-          <Badge badgeContent={5} color="secondary">
+          <Badge badgeContent={countProduct} color="secondary">
             <ShoppingCart></ShoppingCart>
           </Badge>
         </IconButton>

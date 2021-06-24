@@ -9,11 +9,11 @@ import {
 import axios from "axios";
 import { put, call, takeLatest, takeEvery } from "redux-saga/effects";
 function* loadProductsSaga(action) {
-  console.log("test ", action);
+  console.log("test ", action.payload);
   try {
     yield put(loadProductsRequest());
     //   const { data } = await axios.get(`/products${query}`);
-    const { data } = yield call(getProducts, action);
+    const { data } = yield call(getProducts, action.payload);
     console.log(data);
     yield put(loadAllProduct({ products: data }));
     // yield put(loadProductsStatus());
@@ -25,14 +25,14 @@ function* loadProductsSaga(action) {
   }
 }
 
-function* loadProductSaga(id) {
+function* loadProductSaga(action) {
   console.log("test saga");
   try {
     yield put(loadProductsRequest());
     //   const { data } = await axios.get(`/products${query}`);
-    const { data } = yield call(getProduct(id));
+    const { data } = yield call(getProduct, action.payload);
     console.log(data);
-    yield put(loadProduct({ products: data }));
+    yield put(loadProduct({ products: [data] }));
     // yield put(loadProductsStatus());
     // put({ type: LOAD_PRODUCTS_SUCCESS, payload: { products: data } });
   } catch (error) {

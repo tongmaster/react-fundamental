@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Grid,
   Paper,
@@ -12,7 +12,8 @@ import {
   Button,
 } from "@material-ui/core";
 
-import { loadProductById } from "../productSlice";
+import * as productSlice from "../productSlice";
+import * as cartSlice from "modules/cart/cartSlice";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
@@ -30,7 +31,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const [product, setProduct] = useState();
+  // const [product, setProduct] = useState();
+  const [product] = useSelector((state) => state.products.items);
+  const productId = useSelector((state) => state.cart.productIds);
+  const exist = productId.includes(id);
   const classes = useStyles();
   const history = useHistory();
   const theme = useTheme();
@@ -43,13 +47,17 @@ export default function ProductDetails() {
     //   setProduct(data);
     // };
     // loadProduct();
-    dispatch(loadProductById(id));
+    dispatch(productSlice.loadProductById(id));
   }, [dispatch, id]);
 
   const buyNow = () => {
+    addToCart();
     history.push("/cart");
   };
 
+  const addToCart = () => {
+    dispatch(cartSlice.addToCartAction(id));
+  };
   if (!product) return null;
 
   return (
@@ -75,16 +83,18 @@ export default function ProductDetails() {
               </Typography>
               <p>{product.desc}</p>
             </Grid>
-            <Grid item>
-              <ButtonGroup
-                variant="contained"
-                color="primary"
-                aria-label="primary button group"
-              >
-                <Button onClick={buyNow}>Buy Now</Button>
-                <Button>Add to Cart</Button>
-              </ButtonGroup>
-            </Grid>
+            {!exist && (
+              <Grid item>
+                <ButtonGroup
+                  variant="contained"
+                  color="primary"
+                  aria-label="primary button group"
+                >
+                  <Button onClick={buyNow}>Buy Now</Button>
+                  <Button onClick={addToCart}>Add to Cart</Button>
+                </ButtonGroup>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Grid>
