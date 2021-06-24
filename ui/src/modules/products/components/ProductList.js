@@ -6,6 +6,8 @@ import { useLocation } from "react-router-dom";
 import CategoryList from "./CategoryList";
 import ProductItem from "./ProductItem";
 import queryString from "query-string";
+import { useDispatch, useSelector } from "react-redux";
+import { loadProducts } from "../productSlice";
 const useStyles = makeStyles((theme) => ({
   title: {
     textAlign: "center",
@@ -20,20 +22,28 @@ export default function ProductList() {
   const classes = useStyles();
   const { search } = useLocation();
   const { category } = queryString.parse(search);
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading, items: products } = useSelector((state) => state.products);
+  // const [products, setProducts] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+
+  // useEffect(() => {
+  //   const loadProducts = async () => {
+  //     setIsLoading(true);
+  //     const { data } = await axios.get(`/products${search}`);
+  //     setProducts(data);
+  //     setIsLoading(false);
+  //   };
+
+  //   loadProducts();
+  // }, [search]);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      setIsLoading(true);
-      const { data } = await axios.get(`/products${search}`);
-      setProducts(data);
-      setIsLoading(false);
-    };
-
-    loadProducts();
-  }, [search]);
-
+    // setIsLoading(true);
+    console.log("search", search);
+    dispatch(loadProducts(search));
+    // setIsLoading(false);
+  }, [dispatch, search]);
   return (
     <>
       <Typography variant="h4" component="h1" className={classes.title}>
